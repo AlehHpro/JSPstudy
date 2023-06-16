@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +26,8 @@ public class GetServlet extends HttpServlet {
 		// In this case - registration to a web(weather) service url. URL is embedded into init parameter in web.xml file.
 		ServletConfig config = getServletConfig();
 		System.out.println(config.getInitParameter("URL"));
+		ServletContext context = getServletContext();
+		System.out.println(context.getInitParameter("dbURL"));
 		
 		
 		String value = req.getParameter("name");
