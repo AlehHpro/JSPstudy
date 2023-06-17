@@ -40,7 +40,7 @@
 
 
 	<section>
-	
+	<!-- Displays date and time for today -->
 	<%=displayDate()%>
 	</section>
 	<section id="login" class="section">
@@ -90,8 +90,8 @@
 
 public String displayDate(){
 	SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-mm-dd hh:mm");
-	Date toDate = Calendar.getInstance().getTime();
-	return dateFormat.format(toDate);
+	Date date = Calendar.getInstance().getTime();
+	return dateFormat.format(date);
 }
 
 %>
