@@ -20,6 +20,9 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// collect search string from the form
 		String searchString = req.getParameter("search");
+		
+		// Set the search criteria as an attribute in the request scope
+		req.getSession().setAttribute("search", searchString);
 
 		// call DAO layer and get all products for search criteria
 		ApplicationDao dao = new ApplicationDao();

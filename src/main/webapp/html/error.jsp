@@ -8,5 +8,7 @@
 </head>
 <body>
 <p>Sorry, some error occured, please try again later</p>
+<!-- Accessing exception object to find the cause of the problem -->
+<%= exception %>
 </body>
 </html>

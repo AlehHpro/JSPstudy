@@ -13,9 +13,9 @@
 <body>
 
 	<!-- Header is extracted to a separate header.jsp and included here using include directive -->
-	<%@ include file="header.jsp" %>
-	
-	
+	<%@ include file="header.jsp"%>
+
+
 	<!-- #home -->
 
 	<section id="products" class="section">
@@ -26,33 +26,45 @@
 				high-quality, nutrient-rich, nutritional products that <em>enhance
 					active lifestyles</em>.
 			</p>
+			<%
+			if (session.getAttribute("cart") != null) {
+			%>
 			<p>
-				<span id="size">Items in Cart: 0</span>
+				<span id="size"
+					title="<%=((ArrayList) session.getAttribute("cart"))%>">Items
+					in Cart: <%=((ArrayList) session.getAttribute("cart")).size()%></span>
 			</p>
+			<%
+			} else {
+			%>
+			<span id="size">Items in cart :0</span>
+			<%
+			}
+			%>
 		</div>
 
 
 
 		<div class="productContainer">
 
-				<!-- Display products through scriplet and expression -->
-				<%
-				List<Product> products = (ArrayList) request.getAttribute("products");
-				Iterator<Product> iterator = products.iterator();
-				while (iterator.hasNext()) {
-					Product product = iterator.next();
-				%>
-				<form>
+			<!-- Display products through scriplet and expression -->
+			<%
+			List<Product> products = (ArrayList) request.getAttribute("products");
+			Iterator<Product> iterator = products.iterator();
+			while (iterator.hasNext()) {
+				Product product = iterator.next();
+			%>
+			<form action="addProducts" method="get">
 
-					<div class="productContainerItem">
-						<img id="pic1" src="<%=product.getProductImgPath()%>"> <input type="text" name="product"
-							value="<%=product.getProductName()%>"><br />
-						<button>Add to Cart</button>
-					</div>
-				</form>
-				<%
-				}
-				%>
+				<div class="productContainerItem">
+					<img id="pic1" src="<%=product.getProductImgPath()%>"> <input
+						type="text" name="product" value="<%=product.getProductName()%>"><br />
+					<button>Add to Cart</button>
+				</div>
+			</form>
+			<%
+			}
+			%>
 		</div>
 	</section>
 	<!-- #products -->
