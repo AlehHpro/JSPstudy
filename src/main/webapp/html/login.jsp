@@ -45,6 +45,7 @@
 	</section>
 	<section id="login" class="section">
 		<div class="container tagline">
+		<!-- Display error if user is invalid -->
 			<% if(request.getAttribute("error")!=null){ %>
 			<em><%=request.getAttribute("error")%></em><br />
 			<%} %>
