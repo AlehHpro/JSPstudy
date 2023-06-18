@@ -11,12 +11,13 @@ import beans.User;
 
 /**
  * Method searchProducts returns the list of products.
+ * 
  * @author Aleh_Hutyrchyk
  *
  */
 public class ApplicationDao {
 	public List<Product> searchProducts(String searchString) {
-		// Products are encapsulated into Products bean to stick with OOP. 
+		// Products are encapsulated into Products bean to stick with OOP.
 		Product product = null;
 		List<Product> products = new ArrayList<>();
 
@@ -25,12 +26,13 @@ public class ApplicationDao {
 			Connection connection = DBConnection.getConnectionDatabase();
 			// Query for searching products.
 			String sql = "select * from products where product_name like '%" + searchString + "%'";
-			
+
 			Statement statement = connection.createStatement();
 			// Put all rows into ResultSet.
 			ResultSet set = statement.executeQuery(sql);
-			
-			// Each row of the result set is added to the product object which is added to the products list.
+
+			// Each row of the result set is added to the product object which is added to
+			// the products list.
 			while (set.next()) {
 				product = new Product();
 				product.setProductId(set.getInt("product_id"));
@@ -38,23 +40,22 @@ public class ApplicationDao {
 				product.setProductName(set.getString("product_name"));
 				products.add(product);
 			}
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return products;
 	}
-	
+
 	public int registerUser(User user) {
 		int rowsAffected = 0;
-		
+
 		try {
 			// Get the connection for the DB.
 			Connection connection = DBConnection.getConnectionDatabase();
-			
+
 			// Write the insert query.
 			String insertQuery = "insert into users values(?,?,?,?,?,?)";
-			
+
 			// Set parameters with PreparedStatement.
 			java.sql.PreparedStatement statement = connection.prepareStatement(insertQuery);
 			statement.setString(1, user.getUsername());
@@ -63,14 +64,43 @@ public class ApplicationDao {
 			statement.setString(4, user.getLastName());
 			statement.setInt(5, user.getAge());
 			statement.setString(6, user.getActivity());
-			
+
 			// Execute the statement.
 			rowsAffected = statement.executeUpdate();
-			
+
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
 		return rowsAffected;
 	}
-	
+
+	// User validation in a servlet
+	public boolean validateUser(String username, String password) {
+		boolean isValidUser = false;
+
+		try {
+			// Get the connection for the DB
+			Connection connection = DBConnection.getConnectionDatabase();
+
+			// Write the select query
+			String sql = "select * from users where username = ? and password = ?";
+
+			// Set parameters with PreparedStatement
+			java.sql.PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, username);
+			statement.setString(2, password);
+
+			// Execute the statement and check whether the user exists
+			ResultSet set = statement.executeQuery();
+			while (set.next()) {
+				isValidUser = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return isValidUser;
+
+	}
+
 }
