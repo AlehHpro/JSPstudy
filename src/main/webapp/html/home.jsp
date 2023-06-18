@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -22,7 +21,8 @@
 					<li><a href="home">home</a></li>
 					<li><a href="orderHistory">order history</a></li>
 					<!-- <li><a href="viewProfile">view my profile</a></li> -->
-					<li><a href='<%=response.encodeURL("viewProfile")%>'>view
+					<!-- Encoding URL for "view profile" hyperlink on home.jsp using response.encodeURL API -->
+					<li><a href='<%=response.encodeURL("getProfileDetails")%>'>view
 							my profile</a></li>							
 					<li><a href='logout'>logout</a></li>
 					<li><a href="redirect">linkedIn</a></li>
