@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -21,12 +22,16 @@ public class SearchServlet extends HttpServlet {
 		// collect search string from the form
 		String searchString = req.getParameter("search");
 		
+		// Picking up connection object from the listener.
+		Connection connection = (Connection)getServletContext().getAttribute("dbconnection");
+		
 		// Set the search criteria as an attribute in the request scope
 		req.getSession().setAttribute("search", searchString);
 
 		// call DAO layer and get all products for search criteria
 		ApplicationDao dao = new ApplicationDao();
-		List<Product> products = dao.searchProducts(searchString);
+		//List<Product> products = dao.searchProducts(searchString);
+		List<Product> products = dao.searchProducts(searchString, connection);
 
 		// write the products data back to the client browser
 		/*

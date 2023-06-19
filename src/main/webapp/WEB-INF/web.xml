@@ -53,5 +53,9 @@
 	<filter-name>AuthenticationFilter</filter-name>
 	<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<listener>
+	<listener-class>listeners.ApplicationListener</listener-class>
+	</listener>
 
 </web-app>

@@ -16,14 +16,14 @@ import beans.User;
  *
  */
 public class ApplicationDao {
-	public List<Product> searchProducts(String searchString) {
+	public List<Product> searchProducts(String searchString, Connection connection) {
 		// Products are encapsulated into Products bean to stick with OOP.
 		Product product = null;
 		List<Product> products = new ArrayList<>();
 
 		try {
 			// Get connection from DBConnection class.
-			Connection connection = DBConnection.getConnectionDatabase();
+			//Connection connection = DBConnection.getConnectionDatabase();
 			// Query for searching products.
 			String sql = "select * from products where product_name like '%" + searchString + "%'";
 
