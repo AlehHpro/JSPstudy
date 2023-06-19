@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -100,7 +101,35 @@ public class ApplicationDao {
 		}
 
 		return isValidUser;
-
+	}
+	
+	// Method to get user profile details.
+	public User getProfileDetails(String username){
+		User user = null;
+		try {
+		// Get connection to DB.
+		Connection connection = DBConnection.getConnectionDatabase();
+		
+		// Write select query to get profile details.
+		String sql = "select * from users where username = ?";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, sql);
+		
+		// Execute query, get resultset and return user info.
+		ResultSet set = statement.executeQuery();
+		while(set.next()) {
+			user = new User();
+			user.setUsername(set.getString("username"));
+			user.setFirstName("first_name");
+			user.setLastName("last_name");
+			user.setActivity("activity");
+			user.setAge(set.getInt("age"));
+		}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 }
