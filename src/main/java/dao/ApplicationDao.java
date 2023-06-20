@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.sql.Statement;
+
+import beans.Order;
 import beans.Product;
 import beans.User;
 
@@ -131,6 +134,40 @@ public class ApplicationDao {
 			e.printStackTrace();
 		}
 		return user;
+	}
+	
+	// Getting order details for the user (for JSTL demo).
+	public List<Order> getOrders(String username){
+		Order order = null;
+		List<Order> orders = new ArrayList<>();
+		try {
+			// Get connection to DB.
+			Connection connection = new DBConnection().getConnectionDatabase();
+			
+			// Write select query to get order details.
+			String sql = "select * from orders where user_name = ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, username);
+			
+			// Execute query, get resultset and return User info.
+			ResultSet set = statement.executeQuery();
+			while(set.next()) {
+				
+				order = new Order();
+				order.setOrderId(set.getInt("orderId"));
+				order.setProductName(set.getString("product_name"));
+				order.setProductImgPath(set.getString("image_path"));
+				order.setOrderDate(new Date(set.getDate("order_date").getTime()));
+				order.setUsername(set.getString("user_name"));
+				orders.add(order);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return orders;
 	}
 
 }
