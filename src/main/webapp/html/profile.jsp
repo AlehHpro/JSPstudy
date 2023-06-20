@@ -2,6 +2,7 @@
 <%@page import="beans.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.hplus.com/apptags" prefix="myTags"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -35,6 +36,7 @@
 	</header>
 
 	<!-- <jsp:useBean id="user" scope="request" type="beans.User"></jsp:useBean> -->
+	<myTags:formatDate date="<%=Calendar.getInstance().getTime() %>" format="dd-MM-YYYY"/>
 	<section id="profile" class="section">
 		<div class="container">
 			<h2 class="headline">My Profile</h2>
