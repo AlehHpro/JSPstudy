@@ -2,7 +2,6 @@
 <%@page import="beans.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <!DOCTYPE html >
 <html>
 <head>
@@ -24,8 +23,7 @@
 					<li><a href="home">home</a></li>
 					<li><a href="orderHistory">order history</a></li>
 					<!-- <li><a href="viewProfile">view my profile</a></li> -->
-					<li><a href='<%=response.encodeURL("viewProfile")%>'>view
-							my profile</a></li>
+					<li><a href=''>view my profile</a></li>
 					<li><a href='logout'>logout</a></li>
 					<li><a href="redirect">linkedIn</a></li>
 
@@ -34,18 +32,9 @@
 			</div>
 			<!-- container nav-elements -->
 		</nav>
-		<!-- <div class="container tagline">
-    <h1 class="headline">Our Mission</h1>
-    <p>We support and encourage <em>active and healthy</em> lifestyles, by offering <em>ethically sourced</em> and <em>eco-friendly</em> nutritional products for the <em>performance-driven</em> athlete.</p>
-  </div>container tagline -->
 	</header>
 
-	<jsp:useBean id="user" scope="request" type="beans.User"></jsp:useBean>
-	<section>
-
-
-	</section>
-	
+	<!-- <jsp:useBean id="user" scope="request" type="beans.User"></jsp:useBean> -->
 	<section id="profile" class="section">
 		<div class="container">
 			<h2 class="headline">My Profile</h2>
@@ -53,23 +42,48 @@
 
 				<tr>
 					<td>Username</td>
-					<td><jsp:getProperty property="username" name="user" /></td>
+					<!--  <td><jsp:getProperty property="username" name="user"/> </td> -->
+					<td>${user.username}</td>
 				</tr>
 				<tr>
 					<td>First Name</td>
-					<td><jsp:getProperty property="firstName" name="user" /></td>
+					<!-- <td><jsp:getProperty property="firstName" name="user"/></td> -->
+					<td>${user.firstName}</td>
 				</tr>
 				<tr>
 					<td>Last Name</td>
-					<td><jsp:getProperty property="lastName" name="user" /></td>
+					<!-- <td><jsp:getProperty property="lastName" name="user"/></td> -->
+					<td>${user.lastName}</td>
 				</tr>
 				<tr>
 					<td>Age</td>
+					<!-- <td><jsp:getProperty property="age" name="user"/></td> -->
 					<td>${user.age}</td>
 				</tr>
 				<tr>
 					<td>Interested in</td>
+					<!-- <td><jsp:getProperty property="activity" name="user"/></td> -->
 					<td>${user.activity}</td>
+				</tr>
+
+			</table>
+		</div>
+		<div class="container">
+			<h2 class="headline">Weight Summary</h2>
+			<table id="weightSummary">
+
+				<tr>
+					<td>January</td>
+					<!-- Accessing Map weightSummary (from the request scope) in ViewProfileServlet and accessing value of the key January -->
+					<td>${requestScope.weightSummary["January"]*2}</td>
+				</tr>
+				<tr>
+					<td>February</td>
+					<td>${requestScope.weightSummary["February"]*2}</td>
+				</tr>
+				<tr>
+					<td>March</td>
+					<td>${requestScope.weightSummary["March"]*2}</td>
 				</tr>
 
 			</table>

@@ -13,7 +13,8 @@
 <body>
 
 	<!-- Header is extracted to a separate header.jsp and included here using include directive -->
-	<%@ include file="header.jsp"%>
+	<%-- <%@ include file="header.jsp"%> --%>
+	<jsp:include page="header.jsp"></jsp:include>
 
 
 	<!-- #home -->

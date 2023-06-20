@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +25,15 @@ public class ViewProfileServlet extends HttpServlet{
 		ApplicationDao dao = new ApplicationDao();
 		User user = dao.getProfileDetails(username);
 		
+		// For "weightSummary" table in profile.jsp. (Creating new collection object).
+		Map<String, Double> weightSummary = new HashMap<>();
+		weightSummary.put("January", 67.9);
+		weightSummary.put("Febuary", 65.9);
+		weightSummary.put("March", 64.8);
+		
 		// Store all information in request object.
 		req.setAttribute("user", user);
+		req.setAttribute("weightSummary", weightSummary);
 		
 		// Forward control to profile.jsp
 		req.getRequestDispatcher("/html/profile.jsp").forward(req, resp);

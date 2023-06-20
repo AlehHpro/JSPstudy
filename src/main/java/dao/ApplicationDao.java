@@ -113,11 +113,12 @@ public class ApplicationDao {
 		// Write select query to get profile details.
 		String sql = "select * from users where username = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, sql);
+		statement.setString(1, username);
 		
 		// Execute query, get resultset and return user info.
 		ResultSet set = statement.executeQuery();
 		while(set.next()) {
+			System.out.println("FOUND USER!!!!!");
 			user = new User();
 			user.setUsername(set.getString("username"));
 			user.setFirstName("first_name");
